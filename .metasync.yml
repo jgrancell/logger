@@ -1,0 +1,9 @@
+---
+## These determine where we are pulling our template data from
+sourceRepository: https://github.com/jgrancell/metasync
+sourceRefType: branch
+sourceRef: templates
+sourceTemplatePath: golang/library
+
+exclude:
+- packaging/*
