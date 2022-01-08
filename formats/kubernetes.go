@@ -20,11 +20,10 @@ type KubernetesFormat struct {
 	LogParameters  map[string]string
 }
 
-type KubernetesMessage struct {
-	Timestamp  time.Time
-	Severity   string
-	Message    string
-	Parameters map[string]string
+func (f *KubernetesFormat) Init() {
+	if f.DateTimeFormat == "" {
+		f.DateTimeFormat = KUBERNETES_DATETIME
+	}
 }
 
 func (f *KubernetesFormat) GetDefaultParameters() map[string]string {
@@ -36,9 +35,6 @@ func (f *KubernetesFormat) GetDefaultParameters() map[string]string {
 }
 
 func (f *KubernetesFormat) Format(timestamp time.Time, severity string, message string, params map[string]string) (string, error) {
-	if f.DateTimeFormat == "" {
-		f.DateTimeFormat = KUBERNETES_DATETIME
-	}
 
 	k8s := KubernetesMessage{
 		Severity:   severity,

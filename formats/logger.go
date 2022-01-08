@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	LOGGER_DATETIME     = "2006-01-02T15:04:05-0700"
+	LOGGER_DATETIME     = "2006-01-02T15:04:05Z07:00"
 	LOGGER_FORMAT       = "time=\"%s\" level=\"%s\" msg=\"%s\""
 	LOGGER_FORMAT_PARAM = "%s  %s=\"%s\""
 )
@@ -19,11 +19,10 @@ type LoggerFormat struct {
 	PrettyPrint    bool
 }
 
-type LoggerMessage struct {
-	Timestamp string `json:"time"`
-	Severity  string `json:"level"`
-	Message   string `json:"msg"`
-	Batch     string `json:"batch,omitempty"`
+func (f *LoggerFormat) Init() {
+	if f.DateTimeFormat == "" {
+		f.DateTimeFormat = LOGGER_DATETIME
+	}
 }
 
 func (f *LoggerFormat) GetDefaultParameters() map[string]string {
@@ -31,10 +30,6 @@ func (f *LoggerFormat) GetDefaultParameters() map[string]string {
 }
 
 func (f *LoggerFormat) Format(timestamp time.Time, severity string, message string, params map[string]string) (string, error) {
-	if f.DateTimeFormat == "" {
-		f.DateTimeFormat = LOGGER_DATETIME
-	}
-
 	msg := LoggerMessage{
 		Severity:  severity,
 		Message:   message,

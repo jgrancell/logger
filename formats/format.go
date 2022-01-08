@@ -3,6 +3,7 @@ package formats
 import "time"
 
 type Format interface {
+	Init()
 	GetDefaultParameters() map[string]string
 	Format(time.Time, string, string, map[string]string) (string, error)
 }

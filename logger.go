@@ -52,6 +52,8 @@ func (l *Logger) Init() error {
 	if l.Format == nil {
 		l.Format = &formats.LoggerFormat{}
 	}
+	l.Format.Init()
+
 	return nil
 }
 
