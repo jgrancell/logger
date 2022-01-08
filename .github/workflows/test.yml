@@ -42,7 +42,7 @@ jobs:
     strategy:
       matrix:
         platform: [ubuntu-latest, macos-latest]
-        go: [14, 15, 16, 17]
+        go: [17]
     name: v1.${{ matrix.go }}.x | ${{ matrix.platform }}
     runs-on: ${{ matrix.platform }}
     steps:
