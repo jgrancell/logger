@@ -20,7 +20,7 @@ func main() {
 		_ = k8s.Fallback.Handle(err.Error())
 	}
 
-	k8s.Info("example kubernetes standard format message")
+	_ = k8s.Info("example kubernetes standard format message")
 
 	// Batching log messages can be useful if your application (such as a k8s controller) may have several log lines
 	//   related to the same ongoing end goal. This lets you cherrypick out log lines related only to a specific action
@@ -29,8 +29,8 @@ func main() {
 	// Batches are not committed to the log until you either call `.Parse()` or one of the accessor functions, such as `.Warning()` or `.Info()`
 	batch := k8s.Batch("aaaa-bbbb-cccc-dddd")
 
-	batch.WithMessage(logger.LOG_DEBUG, "detected example CRD change for namespace-foo/name-bar. starting update process for k8s resources.")
+	_ = batch.WithMessage(logger.LOG_DEBUG, "detected example CRD change for namespace-foo/name-bar. starting update process for k8s resources.")
 	batch.WithMessage(logger.LOG_WARNING, "missing example value foobar in updated CDR. using value for foobar from previous version")
-	k8s.Batch("111-222-333-444").Warning("missing example value fizzbuzz in updated CDR. using value for foobar from previous version")
-	batch.Info("completed reconciliation for namespace-foo/name-bar resource. resource is up to date.")
+	_ = k8s.Batch("111-222-333-444").Warning("missing example value fizzbuzz in updated CDR. using value for foobar from previous version")
+	_ = batch.Info("completed reconciliation for namespace-foo/name-bar resource. resource is up to date.")
 }

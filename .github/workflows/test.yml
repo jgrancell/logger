@@ -1,0 +1,74 @@
+name: Test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+
+  golangci-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-go@v2
+        with:
+          go-version: '1.17'
+      - uses: actions/checkout@v2
+      - uses: golangci/golangci-lint-action@v2
+        with:
+          version: latest
+          args: --verbose
+  
+  gofmt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-go@v2
+        with:
+          go-version: '1.17'
+      - uses: actions/checkout@v2
+      - run: test -z $(gofmt -l .)
+  
+  staticcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-go@v2
+        with:
+          go-version: '1.17'
+      - uses: actions/checkout@v2
+      - uses: dominikh/staticcheck-action@v1.1.0
+        with:
+          version: "2021.1.1"  
+
+  test:
+    strategy:
+      matrix:
+        platform: [ubuntu, macos]
+        go: [14, 15, 16, 17]
+    name: v1.${{ matrix.go }}.x | ${{ matrix.platform }}
+    runs-on: ${{ matrix.platform }}-latest
+    steps:
+      - uses: actions/setup-go@v2
+        with:
+          go-version: 1.${{ matrix.go }}.x
+
+      - uses: actions/checkout@v2
+
+      - uses: actions/cache@v2
+        with:
+          path: $HOME/go/pkg/mod
+          key: ${{ runner.os }}-1.${{ matrix.go }}.x-${{ hashFiles('**/go.sum') }}
+          restore-keys: ${{ runner.os }}-1.${{ matrix.go }}.x-
+      
+      - run: |
+          export GOBIN=$HOME/go/bin
+          case "${{ matrix.go }}" in
+            16|17) _version='@latest';;
+            *) _version='';;
+          esac
+          go install github.com/kyoh86/richgo"${_version}"
+
+      - run: PATH=$HOME/go/bin/:$PATH make test
+
+      - uses: codecov/codecov-action@v1
+        if: success() && ${{matrix.go}} == 17 && ${{matrix..platform}} = "ubuntu"
+        with:
+          fail_ci_if_error: true

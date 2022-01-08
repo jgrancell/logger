@@ -24,8 +24,8 @@ func DefaultLogger() {
 		_ = log.Fallback.Log(err.Error())
 	}
 
-	log.Info("example standard out message")
-	log.Batch("aaaa-bbbb-cccc-dddd").Info("example standard out message with batched log id")
+	_ = log.Info("example standard out message")
+	_ = log.Batch("aaaa-bbbb-cccc-dddd").Info("example standard out message with batched log id")
 }
 
 func DefaultJsonLogger() {
@@ -36,8 +36,8 @@ func DefaultJsonLogger() {
 		},
 	}
 	_ = jog.Init()
-	jog.Info("example json formatted standard out message")
-	jog.Batch("aaaa-bbbb-cccc-dddd").Info("example json formatted standard out message with batched log id")
+	_ = jog.Info("example json formatted standard out message")
+	_ = jog.Batch("aaaa-bbbb-cccc-dddd").Info("example json formatted standard out message with batched log id")
 }
 
 func PrettyJsonLogger() {
@@ -49,6 +49,6 @@ func PrettyJsonLogger() {
 		},
 	}
 	_ = jog.Init()
-	jog.Info("example json formatted standard out message")
-	jog.Batch("aaaa-bbbb-cccc-dddd").Info("example json formatted standard out message with batched log id")
+	_ = jog.Info("example json formatted standard out message")
+	_ = jog.Batch("aaaa-bbbb-cccc-dddd").Info("example json formatted standard out message with batched log id")
 }

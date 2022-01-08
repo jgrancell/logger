@@ -2,7 +2,7 @@ logger
 ===
 
 [![GoDoc](https://godoc.org/github.com/jgrancell/logger?status.svg)](https://pkg.go.dev/github.com/jgrancell/logger)
-[![Go Report Card](https://goreportcard.com/badge/jgrancell/logger)](https://goreportcard.com/report/jgrancell/logger)
+[![codebeat badge](https://codebeat.co/badges/19c16d5c-407f-478a-9b4e-3ffdb070607c)](https://codebeat.co/projects/github-com-jgrancell-logger-main)
 [![codecov](https://codecov.io/gh/jgrancell/logger/branch/master/graph/badge.svg)](https://codecov.io/gh/jgrancell/logger)
 
 Logger is a small, straightforward library to enhance your Go applications with powerful logging features.
@@ -40,17 +40,3 @@ import (
 )
 ...
 ```
-
-### GOPATH
-
-Make sure your `PATH` includes the `$GOPATH/bin` directory so your commands can
-be easily used:
-```
-export PATH=$PATH:$GOPATH/bin
-```
-
-### Supported platforms
-
-cli is tested against multiple versions of Go on Linux, and against the latest
-released version of Go on OS X and Windows. This project uses Github Actions for
-builds. To see our currently supported go versions and platforms, look at the [./.github/workflows/cli.yml](https://github.com/urfave/cli/blob/master/.github/workflows/cli.yml).

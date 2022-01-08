@@ -10,3 +10,6 @@ gosec-report.json
 sonar-project.properties
 
 # Test-Generated Data
+coverage.out
+coverage.txt
+profile.out
