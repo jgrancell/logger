@@ -1,5 +1,19 @@
 package logger
 
+func (l *Logger) LogAndExit(message interface{}) int {
+	if _, ok := message.(error); ok {
+		l.Error(message.(error))
+		return 1
+	}
+	if _, ok := message.(string); ok {
+		text := message.(string)
+		if text != "" {
+			l.Info(text)
+		}
+	}
+	return 0
+}
+
 // Fatal Message Accessors
 func (l *Logger) Fatal(message string) error {
 	return l.CreateEntry(LOG_FATAL, message).Handle()
