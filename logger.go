@@ -1,8 +1,6 @@
 package logger
 
 import (
-	"time"
-
 	"github.com/jgrancell/logger/formats"
 	"github.com/jgrancell/logger/handlers"
 )
@@ -83,10 +81,5 @@ func (l *Logger) CreateEntry(severity int, message string) *EntryBatch {
 		Handler:     l.Handler,
 	}
 
-	e.Messages = append(e.Messages, &Message{
-		Severity: severityStrings[severity],
-		Raw:      message,
-		Time:     time.Now(),
-	})
-	return e
+	return e.WithMessage(severity, message)
 }
