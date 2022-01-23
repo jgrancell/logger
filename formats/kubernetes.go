@@ -8,8 +8,9 @@ import (
 )
 
 const (
-	KUBERNETES_DATETIME = "2006-01-02T15:04:05-0700"
-	KUBERNETES_FORMAT   = "%s%s %s:%d \"%s\""
+	KUBERNETES_DATETIME = "0102 15:04:05.999999"
+	//KUBERNETES_DATETIME = "2006-01-02T15:04:05-0700"
+	KUBERNETES_FORMAT = "%s%s %s %s:%d] \"%s\""
 )
 
 type KubernetesFormat struct {
@@ -59,6 +60,7 @@ func (f *KubernetesFormat) ToString(k KubernetesMessage) (string, error) {
 		KUBERNETES_FORMAT,
 		strings.ToUpper(string(k.Severity[0])),
 		t,
+		"      -",
 		file,
 		line,
 		k.Message,
