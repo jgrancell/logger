@@ -7,6 +7,8 @@ BINARY=$$(pwd | xargs basename)
 VERSION=$$(grep version main.go | head -n1 | cut -d\" -f2)
 GOBIN=${GOPATH}/bin
 
+.PHONY: test
+
 default: build
 
 build:
@@ -21,11 +23,8 @@ install: build
 test:
 	rm -f coverage.txt profile.out
 	rm -f gosec-report.json
-	/bin/sh go.test.sh
-
-test-sonarqube: test
-	gosec --no-fail -fmt=sonarqube -out gosec-report.json ./...
-	/opt/sonar-scanner/bin/sonar-scanner
+	rm -rf test/test*
+	go test ./... -race -coverprofile=coverage.txt -covermode=atomic
 
 test-view: test
 	go tool cover -html=coverage.txt

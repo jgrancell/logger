@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"io/fs"
 	"os"
-
-	"golang.org/x/sys/unix"
 )
 
 type FileHandler struct {
@@ -28,7 +26,7 @@ func (h *FileHandler) Init() error {
 	}
 	defer file.Close()
 
-	return unix.Access(h.Path, unix.W_OK)
+	return nil
 }
 
 func (h *FileHandler) Handle(message string) error {

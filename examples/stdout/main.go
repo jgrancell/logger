@@ -12,7 +12,6 @@ func main() {
 }
 
 // By default, Logger logs to standard out using the Logger Standard Log Format
-//   This shows how Logger runs with no configurations passed.
 func DefaultLogger() {
 	log := logger.Logger{}
 	if err := log.Init(); err != nil {

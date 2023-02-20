@@ -1,11 +1,10 @@
 package logger
 
 import (
-	"fmt"
+	"reflect"
 	"testing"
 	"time"
 
-	"github.com/google/go-cmp/cmp"
 	"github.com/jgrancell/logger/formats"
 	"github.com/jgrancell/logger/handlers"
 )
@@ -13,7 +12,7 @@ import (
 func TestDefaultLogger(t *testing.T) {
 
 	log := &Logger{}
-	log.Init()
+	_ = log.Init()
 
 	defaultFormat := &formats.LoggerFormat{
 		AsJson:         false,
@@ -23,13 +22,11 @@ func TestDefaultLogger(t *testing.T) {
 
 	defaultHandler := &handlers.StdoutHandler{}
 
-	if !cmp.Equal(log.Handler, defaultHandler) {
-		t.Fatalf("The default log handler is not a default instance of the stdout handler.")
+	if reflect.TypeOf(log.Handler) != reflect.TypeOf(defaultHandler) {
+		t.Fatal("The default log handler is not an instance of the stdout handler.")
 	}
 
-	if !cmp.Equal(log.Format, defaultFormat) {
-		fmt.Println(log.Format)
-		fmt.Println(defaultFormat)
-		t.Fatalf("The default format is not a default instance of the Logger Standard Foramt.")
+	if reflect.TypeOf(log.Format) != reflect.TypeOf(defaultFormat) {
+		t.Fatal("The default format is not an instance of the LoggerFormat Formatter")
 	}
 }
