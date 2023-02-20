@@ -28,7 +28,10 @@ func TestFileHandlerInit(t *testing.T) {
 		t.Errorf("expected to create file %s, got err: %v", handler.Path, err)
 	}
 
-	handler.Handle("foobar fizzbuzz")
+	err = handler.Handle("foobar fizzbuzz")
+	if err != nil {
+		t.Errorf("got error %v while writing log line", err)
+	}
 	s, err := ioutil.ReadFile(handler.Path)
 	if err != nil {
 		t.Errorf("expected to read file %s, got err: %v", handler.Path, err)

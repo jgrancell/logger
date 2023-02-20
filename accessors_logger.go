@@ -4,13 +4,15 @@ import "fmt"
 
 func (l *Logger) LogAndExit(message interface{}) int {
 	if _, ok := message.(error); ok {
-		l.Error(message.(error))
+		// TODO: use fallback logger on failure
+		_ = l.Error(message.(error))
 		return 1
 	}
 	if _, ok := message.(string); ok {
 		text := message.(string)
 		if text != "" {
-			l.Info(text)
+			// TODO: use fallback logger on failure
+			_ = l.Info(text)
 		}
 	}
 	return 0
