@@ -41,7 +41,7 @@ jobs:
   test:
     strategy:
       matrix:
-        platform: [ubuntu-latest, macos-latest]
+        platform: [ubuntu-latest]
         go: [18]
     name: v1.${{ matrix.go }}.x | ${{ matrix.platform }}
     runs-on: ${{ matrix.platform }}

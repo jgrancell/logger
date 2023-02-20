@@ -1,13 +1,12 @@
 package handlers
 
 import (
-	"io/ioutil"
 	"os"
 	"testing"
 )
 
 func createTestDir(t *testing.T) string {
-	tempDir, err := ioutil.TempDir(".", "testtemp")
+	tempDir, err := os.MkdirTemp(".", "testtemp")
 	if err != nil {
 		t.Errorf("failed creating tempdir: %v", err)
 	}
@@ -32,7 +31,7 @@ func TestFileHandlerInit(t *testing.T) {
 	if err != nil {
 		t.Errorf("got error %v while writing log line", err)
 	}
-	s, err := ioutil.ReadFile(handler.Path)
+	s, err := os.ReadFile(handler.Path)
 	if err != nil {
 		t.Errorf("expected to read file %s, got err: %v", handler.Path, err)
 	}

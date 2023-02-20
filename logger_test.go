@@ -12,7 +12,7 @@ import (
 func TestDefaultLogger(t *testing.T) {
 
 	log := &Logger{}
-	log.Init()
+	_ = log.Init()
 
 	defaultFormat := &formats.LoggerFormat{
 		AsJson:         false,
