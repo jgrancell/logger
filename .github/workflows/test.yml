@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/setup-go@v2
         with:
-          go-version: '1.17'
+          go-version: '1.18'
       - uses: actions/checkout@v2
       - uses: golangci/golangci-lint-action@v2
         with:
@@ -23,7 +23,7 @@ jobs:
     steps:
       - uses: actions/setup-go@v2
         with:
-          go-version: '1.17'
+          go-version: '1.18'
       - uses: actions/checkout@v2
       - run: test -z $(gofmt -l .)
   
@@ -32,7 +32,7 @@ jobs:
     steps:
       - uses: actions/setup-go@v2
         with:
-          go-version: '1.17'
+          go-version: '1.18'
       - uses: actions/checkout@v2
       - uses: dominikh/staticcheck-action@v1.1.0
         with:
@@ -42,7 +42,7 @@ jobs:
     strategy:
       matrix:
         platform: [ubuntu-latest, macos-latest]
-        go: [17]
+        go: [18]
     name: v1.${{ matrix.go }}.x | ${{ matrix.platform }}
     runs-on: ${{ matrix.platform }}
     steps:
@@ -56,6 +56,6 @@ jobs:
       - run: go test -race -coverprofile=coverage.out -covermode=atomic 
 
       - uses: codecov/codecov-action@v1
-        if: success() && ${{matrix.go}} == 17 && ${{matrix.platform}} = "ubuntu-latest"
+        if: success() && ${{matrix.go}} == 18 && ${{matrix.platform}} = "ubuntu-latest"
         with:
           fail_ci_if_error: true
